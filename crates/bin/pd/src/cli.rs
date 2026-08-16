@@ -118,6 +118,18 @@ pub enum RootCommand {
         prune: bool,
     },
 
+    /// Prune the main store JMT in place: keeps only the latest version of the
+    /// verifiable state, verified by range proofs, so the root hash is
+    /// unchanged. Not consensus-affecting. Stop pd first.
+    Prune {
+        /// The home directory of the full node.
+        #[clap(long, env = "PENUMBRA_PD_HOME", display_order = 100)]
+        home: PathBuf,
+        /// Keys per streamed chunk.
+        #[clap(long, default_value = "100000", display_order = 200)]
+        chunk_size: usize,
+    },
+
     /// Run a migration before resuming post-upgrade.
     Migrate {
         /// The home directory of the full node.

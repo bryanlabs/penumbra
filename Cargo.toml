@@ -237,6 +237,9 @@ url                              = { version = "2.2" }
 getrandom                        = { version = "0.2", default-features = false }
 
 [patch.crates-io]
+# JMT pruning (penumbra-zone/cnidarium#12) cherry-picked onto cnidarium 0.83.0,
+# the version v2.0.0 ships with. Used by `pd prune`.
+cnidarium = { git = "https://github.com/bryanlabs/cnidarium", branch = "bryanlabs/prune-0.83" }
 # Without this, the git dependency for ledger-lib will depend on the crates.io v0.1 version,
 # and will fail to build.
 ledger-proto = { git = "https://github.com/ledger-community/rust-ledger", rev = "510bb3ca30639af4bdb12a918b6bbbdb75fa5f52" }

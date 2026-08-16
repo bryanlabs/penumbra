@@ -471,6 +471,14 @@ async fn main() -> anyhow::Result<()> {
                 tracing::info!("export complete: {}", export_directory.display());
             }
         }
+        RootCommand::Prune { home, chunk_size } => {
+            let span = tracing::error_span!("pd_prune");
+            span.in_scope(|| tracing::info!("pruning pd state in {}", home.display()));
+            pd::prune::prune_state(home, chunk_size)
+                .instrument(span)
+                .await
+                .context("failed to prune state")?;
+        }
         RootCommand::Migrate {
             home,
             comet_home,

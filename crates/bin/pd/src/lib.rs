@@ -9,6 +9,7 @@ pub mod metrics;
 
 pub mod cli;
 pub mod migrate;
+pub mod prune;
 pub mod network;
 pub mod zipserve;
 
