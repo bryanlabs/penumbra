@@ -1,0 +1,12 @@
+FROM docker.io/rust:1-slim-bookworm AS build-env
+RUN apt-get update && apt-get install -y build-essential pkg-config libssl-dev clang git && rm -rf /var/lib/apt/lists/*
+WORKDIR /usr/src/penumbra
+COPY . .
+RUN rustup install && cargo build --release -p pd
+
+FROM docker.io/debian:bookworm-slim
+RUN apt-get update && apt-get install -y curl jq libssl-dev ca-certificates && rm -rf /var/lib/apt/lists/*
+RUN groupadd --gid 1000 penumbra && useradd -m -d /home/penumbra -g 1000 -u 1000 penumbra
+COPY --from=build-env /usr/src/penumbra/target/release/pd /usr/bin/pd
+WORKDIR /home/penumbra
+USER penumbra

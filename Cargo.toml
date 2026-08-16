@@ -12,7 +12,6 @@ members = [
   "crates/bin/pclientd",
   "crates/bin/pd",
   "crates/bin/pindexer",
-  "crates/bin/pmonitor",
   "crates/cnidarium-component",
   "crates/core/app",
   "crates/core/app-tests",
